@@ -14,7 +14,7 @@ export default function CommentForm({ postId }: { postId: string }) {
   >(createComment, initialState);
 
   return (
-    <form action={formAction} className="flex flex-col gap-2">
+    <form action={formAction} className="flex min-w-0 max-w-full flex-col gap-2">
       <input type="hidden" name="postId" value={postId} />
       <textarea
         name="content"
@@ -22,7 +22,7 @@ export default function CommentForm({ postId }: { postId: string }) {
         required
         maxLength={MAX_COMMENT_LENGTH}
         rows={2}
-        className="w-full resize-none rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-zinc-50"
+        className="w-full max-w-full resize-none rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none transition-colors focus:border-zinc-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-50 dark:focus:border-zinc-50"
       />
       <div className="flex items-center justify-between gap-3">
         {state.error ? (

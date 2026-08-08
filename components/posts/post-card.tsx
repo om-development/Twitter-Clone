@@ -64,10 +64,13 @@ export default function PostCard({
         />
       </div>
 
-      <div className="mt-5 flex flex-col gap-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
+      <div className="mt-5 flex min-w-0 flex-col gap-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
         {post.comments.map((comment) => (
-          <div key={comment.id} className="flex items-start justify-between gap-3">
-            <div className="flex flex-col">
+          <div
+            key={comment.id}
+            className="flex min-w-0 items-start justify-between gap-3"
+          >
+            <div className="flex min-w-0 flex-1 flex-col">
               <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
                 {comment.profiles?.username ?? "Unknown"}
               </span>
@@ -80,7 +83,7 @@ export default function PostCard({
               />
             </div>
             {comment.user_id === currentUserId ? (
-              <form action={deleteComment}>
+              <form action={deleteComment} className="shrink-0">
                 <input type="hidden" name="commentId" value={comment.id} />
                 <button
                   type="submit"
