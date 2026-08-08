@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import PostCard, { type Post } from "@/components/posts/post-card";
 import EditProfileForm from "@/components/profile/edit-profile-form";
 import Navbar from "@/components/navbar";
+import Timestamp from "@/components/timestamp";
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -68,7 +69,10 @@ export default async function ProfilePage() {
           <span className="font-medium text-zinc-700 dark:text-zinc-300">
             Joined
           </span>{" "}
-          {new Date(profile?.created_at ?? user.created_at).toLocaleDateString()}
+          <Timestamp
+            date={profile?.created_at ?? user.created_at}
+            format="date"
+          />
         </p>
 
         <div className="mt-5 flex gap-10 border-t border-zinc-100 pt-5 dark:border-zinc-800">
