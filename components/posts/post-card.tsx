@@ -1,16 +1,8 @@
 import { deletePost } from "@/lib/posts/actions";
-import { deleteComment } from "@/lib/comments/actions";
 import LikeButton from "@/components/likes/like-button";
 import CommentForm from "@/components/comments/comment-form";
+import CommentList, { type PostComment } from "@/components/comments/comment-list";
 import Timestamp from "@/components/timestamp";
-
-export type PostComment = {
-  id: string;
-  user_id: string;
-  content: string;
-  created_at: string;
-  profiles: { username: string } | null;
-};
 
 export type Post = {
   id: string;
@@ -64,37 +56,8 @@ export default function PostCard({
         />
       </div>
 
-      <div className="mt-5 flex min-w-0 flex-col gap-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
-        {post.comments.map((comment) => (
-          <div
-            key={comment.id}
-            className="flex min-w-0 items-start justify-between gap-3"
-          >
-            <div className="flex min-w-0 flex-1 flex-col">
-              <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                {comment.profiles?.username ?? "Unknown"}
-              </span>
-              <p className="break-words whitespace-pre-wrap text-sm leading-relaxed text-zinc-800 dark:text-zinc-200">
-                {comment.content}
-              </p>
-              <Timestamp
-                date={comment.created_at}
-                className="mt-0.5 text-xs text-zinc-400 dark:text-zinc-500"
-              />
-            </div>
-            {comment.user_id === currentUserId ? (
-              <form action={deleteComment} className="shrink-0">
-                <input type="hidden" name="commentId" value={comment.id} />
-                <button
-                  type="submit"
-                  className="text-xs text-red-500 transition-colors hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                >
-                  Delete
-                </button>
-              </form>
-            ) : null}
-          </div>
-        ))}
+      <div className="mt-5 border-t border-zinc-100 pt-2 dark:border-zinc-800">
+        <CommentList comments={post.comments} currentUserId={currentUserId} />
         <CommentForm postId={post.id} />
       </div>
     </article>
